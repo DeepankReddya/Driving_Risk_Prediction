@@ -1,0 +1,6 @@
+SEQ_LEN = 20
+STRIDE = 5
+EPOCHS = 40
+LR = 0.001
+BATCH_SIZE = 32
+MODEL_PATH = "best_model.pth"
