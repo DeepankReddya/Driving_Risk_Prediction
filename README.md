@@ -233,14 +233,35 @@ pip install -r requirements.txt
 
 ---
 
-## ▶️ Running the Project
+## Running the Project
 
-| Task | Command |
-|---|---|
-| Run prediction script | `python test_predict.py` |
-| Run main pipeline | `python main.py` |
-| Run RL agent | `python -m rl.test_agent` |
-| Launch web app | `streamlit run app2.py` |
+### Step 1: Train the LSTM Model
+
+```bash
+python main.py
+```
+
+This runs the full training pipeline — preprocessing, model training, and saving the best model to `best_lstm_model.pt`.
+
+### Step 2: Train the RL Agent
+
+```bash
+python -m rl.train_rl
+```
+
+Trains the Q-Learning agent and saves it as `rl_agent.pkl`.
+
+### Step 3: View Basic Prediction Output
+
+After training, `main.py` also prints sample predictions with confidence scores and attention-based explanations directly to the console. No extra command needed.
+
+### Step 4: Launch the Web App
+
+```bash
+streamlit run app2.py
+```
+
+Opens the interactive Streamlit interface in your browser at `http://localhost:8501`.
 
 ---
 
