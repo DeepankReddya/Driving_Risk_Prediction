@@ -1,6 +1,4 @@
-# A Safety-Aware and Explainable Hybrid Framework
-for Driving Risk Prediction using BiLSTM and
-Reinforcement Learning
+# A Safety-Aware and Explainable Hybrid Framework for Driving Risk Prediction using BiLSTM and Reinforcement Learning
 
 ---
 ## Abstract
