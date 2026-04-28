@@ -1,181 +1,183 @@
-# 🚗 Driving Risk AI System
+# Driving Risk AI System
 
-### Explainable Driving Risk Prediction with Reinforcement Learning-Based Decision Support
-
----
-
-## 📌 Overview
-
-This project presents an **intelligent driving risk analysis system** that combines:
-
-* 🧠 **Deep Learning (LSTM)** for risk prediction
-* 🔍 **Explainable AI (Attention Mechanism)** for interpretability
-* 🤖 **Reinforcement Learning (Q-Learning)** for action recommendations
-* ⚠️ **Rule-based Safety Layer** for reliability
-
-The system not only predicts whether a driving pattern is **SAFE or RISKY**, but also explains *why* and suggests *how to improve it*.
+> **Explainable Driving Risk Prediction with Reinforcement Learning-Based Decision Support**
 
 ---
 
-## 🎯 Key Features
+## Overview
 
-* ✅ Time-series risk prediction using LSTM
-* ✅ Attention-based explainability
-* ✅ RL-based corrective suggestions
-* ✅ Hybrid safety override mechanism
-* ✅ Interactive Streamlit UI
-* ✅ Real-time input simulation
-* ✅ Visualization of attention weights
+An intelligent driving risk analysis system that combines multiple AI techniques to predict, explain, and provide corrective recommendations for driving behavior.
+
+| Component | Technology |
+|---|---|
+| Risk Prediction | Deep Learning (LSTM) |
+| Interpretability | Explainable AI (Attention Mechanism) |
+| Action Recommendations | Reinforcement Learning (Q-Learning) |
+| Reliability | Rule-Based Safety Layer |
 
 ---
 
-## 🧠 System Architecture
+## Key Features
 
-```text
+- **Time-series risk prediction** using LSTM
+- **Attention-based explainability** — understand *why* a prediction was made
+- **RL-based corrective suggestions** — actionable recommendations for safer driving
+- ️ **Hybrid safety override** — rule-based layer for edge cases
+- ️ **Interactive Streamlit interface** with real-time input simulation
+- **Attention weight visualization**
+
+---
+
+## ️ System Architecture
+
+```
 User Input
-   ↓
+↓
 Synthetic Time-Series Generator
-   ↓
+↓
 LSTM Model (Prediction)
-   ↓
+↓
 Attention Layer (Explanation)
-   ↓
+↓
 RL Agent (Recommendation)
-   ↓
+↓
 Rule-Based Safety Layer
-   ↓
+↓
 Final Output (UI)
 ```
 
 ---
 
-## 📊 Dataset
+## Project Structure
 
-* **Source:** Smartphone Sensor-Based Driving Behavior Dataset (Kaggle)
-* **Type:** Multivariate time-series
-
-### Features Used:
-
-* Gyroscope: `GyroX`, `GyroY`, `GyroZ`
-* Accelerometer: `AccX`, `AccY`, `AccZ`
-* Target label (converted to binary)
-
----
-
-## ⚙️ Data Preprocessing
-
-* Renamed target column
-* Removed missing values
-* Feature normalization
-* Converted multi-class labels → binary classification
-* Generated time-series sequences (length = 20)
-* Applied data augmentation
-
----
-
-## 🤖 Model 1: LSTM (Risk Prediction)
-
-### Architecture:
-
-* Input: `(20 timesteps × 7 features)`
-* Stacked LSTM layers
-* Attention mechanism
-* Fully connected layer
-* Output: Binary classification
-
-### Why LSTM?
-
-* Captures **temporal dependencies**
-* Learns **driving behavior patterns over time**
+```
+driving-risk-lstm/
+│
+├── src/
+│ ├── model.py
+│ ├── predict.py
+│ ├── preprocessing.py
+│ ├── explain.py
+│ └── inference.py
+│
+├── rl/
+│ ├── agent.py
+│ ├── env.py
+│ ├── train_rl.py
+│ └── inference_rl.py
+│
+├── app.py
+├── app2.py
+├── main.py
+├── test_predict.py
+├── best_lstm_model.pt
+├── rl_agent.pkl
+├── requirements.txt
+├── results/
+└── report.pdf
+```
 
 ---
 
-## 🔍 Explainability (Attention Mechanism)
+## Dataset
 
-The attention layer highlights:
+- **Source:** [Smartphone Sensor-Based Driving Behavior Dataset (Kaggle)](https://www.kaggle.com/)
+- **Type:** Multivariate time-series
+- **Features Used:**
+- Gyroscope: `GyroX`, `GyroY`, `GyroZ`
+- Accelerometer: `AccX`, `AccY`, `AccZ`
+- Target label (binary classification)
 
-* Important time steps
-* Critical driving events
+### Data Preprocessing
 
-### Example Output:
-
-* Sudden braking detected
-* Sharp turning observed
-* Risk concentrated at timestep 10
-
----
-
-## 🤖 Model 2: Reinforcement Learning (Q-Learning)
-
-### Purpose:
-
-Provide **corrective actions** for safer driving
+- Target column standardization
+- Missing value handling
+- Feature normalization
+- Multi-class to binary conversion
+- Sequence generation (length = 20)
+- Data augmentation
 
 ---
 
-### Environment Design:
+## Models
 
-State includes:
+### Model 1: LSTM (Risk Prediction)
 
-* Acceleration
-* Braking
-* Turning
-* Weather
+**Architecture:**
+- Input: `(20 timesteps × 7 features)`
+- Stacked LSTM layers
+- Attention mechanism
+- Fully connected layer
+- Output: Binary classification (SAFE / RISKY)
 
----
+**Why LSTM?**
+- Captures temporal dependencies in driving behavior
+- Learns sequential patterns over time
 
-### Actions:
+### Explainability (Attention Mechanism)
 
-* Maintain driving
-* Reduce acceleration
-* Apply controlled braking
-* Smooth turning
+The attention layer identifies the most critical time steps and driving patterns contributing to the prediction.
 
----
-
-### Reward Strategy:
-
-* Safe behavior → Positive reward
-* Risky behavior → Negative reward
-
----
-
-## ⚠️ Rule-Based Safety Layer
-
-To ensure reliability, a rule-based system:
-
-* Overrides incorrect predictions
-* Handles unseen edge cases
-
-### Example:
-
-* High acceleration + Rain → Force RISKY
-* Sharp turning + Fog → Safety alert
+**Example attention outputs:**
+- Sudden braking detected
+- Sharp turning observed
+- Risk concentrated at specific timesteps
 
 ---
 
-## 🖥️ Streamlit Application
+### Model 2: Reinforcement Learning (Q-Learning)
 
-### Input Parameters:
+**Purpose:** Provide corrective actions for safer driving.
 
-* Acceleration (Low / Medium / High)
-* Braking intensity
-* Turning behavior
-* Weather condition
+**State Space:**
+| Feature | Description |
+|---|---|
+| Acceleration | Current acceleration level |
+| Braking | Braking intensity |
+| Turning | Turning behavior |
+| Weather | Environmental condition |
+
+**Action Space:**
+1. Maintain current driving
+2. Reduce acceleration
+3. Apply controlled braking
+4. Smooth turning
+
+**Reward Strategy:**
+- Safe behavior → Positive reward
+- Risky behavior → Negative reward
 
 ---
 
-### Output:
+### Rule-Based Safety Layer
 
-* Prediction (SAFE / RISKY)
-* Confidence score
-* Explanation (human-readable)
-* RL-based recommendations
-* Attention graph
+A deterministic override layer ensures reliability in edge cases:
+
+| Condition | Classification |
+|---|---|
+| High acceleration + Rain | Risky |
+| Sharp turning + Fog | Safety Alert |
 
 ---
 
-## 📈 Sample Output
+## ️ Streamlit Application
+
+### Input Parameters
+
+- Acceleration level (Low / Medium / High)
+- Braking intensity
+- Turning behavior
+- Weather condition
+
+### Output
+
+- Prediction: **SAFE** or **RISKY**
+- Confidence score
+- Natural language explanation
+- RL-based recommendations
+- Attention weight visualization
+
+### Sample Output
 
 ```
 Prediction: RISKY
@@ -189,40 +191,12 @@ Explanation:
 Recommendations:
 - Reduce acceleration
 - Smooth turning
-- Drive carefully on wet roads
+- Drive cautiously in wet conditions
 ```
 
 ---
 
-## 📁 Project Structure
-
-```
-driving-risk-lstm/
-│
-├── src/                  # Core ML components
-│   ├── model.py
-│   ├── predict.py
-│   ├── preprocessing.py
-│   ├── explain.py
-│   └── inference.py
-│
-├── rl/                   # Reinforcement Learning
-│   ├── agent.py
-│   ├── env.py
-│   ├── train_rl.py
-│   └── inference_rl.py
-│
-├── app.py                # Stable application
-├── app2.py               # Enhanced UI version
-├── best_lstm_model.pt    # Trained model
-├── rl_agent.pkl          # RL policy
-├── requirements.txt
-└── README.md
-```
-
----
-
-## 🚀 Installation & Setup
+## Installation & Setup
 
 ### 1. Clone Repository
 
@@ -237,17 +211,24 @@ cd driving-risk-lstm
 pip install -r requirements.txt
 ```
 
-### 3. Run Application
+---
 
-```bash
-streamlit run app.py
-```
+## ▶️ Running the Project
+
+| Task | Command |
+|---|---|
+| Run prediction script | `python test_predict.py` |
+| Run main pipeline | `python main.py` |
+| Run RL agent | `python -m rl.test_agent` |
+| Launch web app | `streamlit run app2.py` |
 
 ---
 
-## 🌐 Deployment (Render)
+## Deployment
 
-Use the following start command:
+**Live Application:** [https://driving-risk-prediction.onrender.com/](https://driving-risk-prediction.onrender.com/)
+
+**Start command:**
 
 ```bash
 streamlit run app2.py --server.port $PORT --server.address 0.0.0.0
@@ -255,55 +236,41 @@ streamlit run app2.py --server.port $PORT --server.address 0.0.0.0
 
 ---
 
-## 🧪 Testing Strategy
+## Testing Strategy
 
-The system was evaluated using:
-
-* ✔ Basic sanity tests (safe vs risky inputs)
-* ✔ Edge case testing
-* ✔ Consistency checks
-* ✔ LSTM vs RL alignment
-* ✔ Explanation validation
+- Basic scenario testing
+- Edge case validation
+- Consistency checks
+- Model alignment verification
+- Explanation validation
 
 ---
 
-## 🏆 Key Contributions
+## Key Contributions
 
-This project integrates:
-
-* Deep Learning (LSTM)
-* Reinforcement Learning (Q-Learning)
-* Explainable AI (Attention)
-* Rule-based Safety System
-
-👉 Result: **End-to-end intelligent driving assistant system**
+1. **LSTM-based temporal prediction** with attention explainability
+2. **Reinforcement Learning** for intelligent decision support
+3. **Hybrid system** combining prediction, explanation, and action
+4. **Deployment-ready** interactive Streamlit application
 
 ---
 
-## 🚀 Future Enhancements
+## Future Enhancements
 
-* Real-time sensor data integration
-* Risk scoring (0–100 scale)
-* Deep RL (DQN)
-* Live weather API
-* Cloud deployment with analytics
-
----
-
-## 🎤 Viva Explanation
-
-> “This system combines temporal deep learning for risk prediction with reinforcement learning for corrective decision-making, enhanced with explainability and safety mechanisms.”
+- [ ] Real-time sensor integration
+- [ ] Continuous risk scoring system
+- [ ] Deep Reinforcement Learning upgrade
+- [ ] Weather API integration
+- [ ] Analytics dashboard
 
 ---
 
-## 👨‍💻 Author
+## Author
 
 **Deepank Reddy A**
 
 ---
 
-## ⭐ Project Status
+## License
 
-```text
-Production-ready | Research-level | Fully functional
-```
+This project is for academic and research purposes.
