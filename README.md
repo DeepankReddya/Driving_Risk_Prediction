@@ -1,8 +1,30 @@
-# Driving Risk AI System
-
-> **Explainable Driving Risk Prediction with Reinforcement Learning-Based Decision Support**
+# A Safety-Aware and Explainable Hybrid Framework
+for Driving Risk Prediction using BiLSTM and
+Reinforcement Learning
 
 ---
+## Abstract
+The Real-time prediction and prevention of risky
+driving behavior pose a significant challenge to intelligent trans
+portation systems. Although deep learning techniques dramat
+ically improve the ability to detect abnormalities, conventional
+deep learning-based models tend to be black boxes that cannot
+provide a transparent decision-making process nor guarantee safe
+operation under failure conditions. This paper proposes a novel
+architecture that provides transparency in its risk prediction
+capability along with simultaneous generation of advice for
+drivers on how to correct their hazardous behavior. The system
+uses BiLSTM combined with a temporal attention mechanism
+to process smartphone inertial sensor data stream and not only
+classifies the risk state, but also precisely pinpoints the exact
+moment when the risky behavior happens. Then, Q-Learning
+algorithms take the predicted risky state as input and output
+the necessary advice for driver corrections in a timely fashion.
+Additionally, since neural networks can behave unpredictably in
+very rare situations, the system employs a deterministic safety
+check that takes over the probability estimation task and makes
+decisions based purely on physics. Experimental results show that
+the proposed system achieves 80.2% test accuracy and 0.92 AUC.
 
 ## Overview
 
